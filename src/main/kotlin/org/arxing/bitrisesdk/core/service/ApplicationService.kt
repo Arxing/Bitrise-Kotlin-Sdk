@@ -16,6 +16,7 @@ import org.arxing.bitrisesdk.core.model.response.application.GetAppsOfUserEntity
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import org.arxing.bitrisesdk.core.result.Result
 
 interface ApplicationService {
 
@@ -24,12 +25,12 @@ interface ApplicationService {
     @Query(SORT_BY) sortBy: String? = null,
     @Query(NEXT) next: String? = null,
     @Query(LIMIT) limit: Int? = null,
-  ): GetAppsEntity
+  ): Result<GetAppsEntity>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}")
   suspend fun getApp(
     @Path(APP_SLUG) appSlug: String,
-  ): GetAppEntity
+  ): Result<GetAppEntity>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/bitrise.yml")
   suspend fun getAppBitriseYml(
@@ -39,7 +40,7 @@ interface ApplicationService {
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/branches")
   suspend fun getAppBranches(
     @Path(APP_SLUG) appSlug: String,
-  ): GetAppBranchesEntity
+  ): Result<GetAppBranchesEntity>
 
   @GET("/v$API_VERSION/organizations/{$ORG_SLUG}/apps")
   suspend fun getAppsOfOrganization(
@@ -47,7 +48,7 @@ interface ApplicationService {
     @Query(SORT_BY) sortBy: String? = null,
     @Query(NEXT) next: String? = null,
     @Query(LIMIT) limit: Int? = null,
-  ): GetAppsOfOrganizationEntity
+  ): Result<GetAppsOfOrganizationEntity>
 
   @GET("/v$API_VERSION/users/{$USER_SLUG}/apps")
   suspend fun getAppsOfUser(
@@ -55,5 +56,5 @@ interface ApplicationService {
     @Query(SORT_BY) sortBy: String? = null,
     @Query(NEXT) next: String? = null,
     @Query(LIMIT) limit: Int? = null,
-  ): GetAppsOfUserEntity
+  ): Result<GetAppsOfUserEntity>
 }
