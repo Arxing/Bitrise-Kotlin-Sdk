@@ -5,7 +5,6 @@ import org.arxing.bitrisesdk.core.Constants.API_VERSION
 import org.arxing.bitrisesdk.core.Constants.APP_SLUG
 import org.arxing.bitrisesdk.core.Constants.BEFORE
 import org.arxing.bitrisesdk.core.Constants.BRANCH
-import org.arxing.bitrisesdk.core.Constants.BUILD_ABORT_PARAMS
 import org.arxing.bitrisesdk.core.Constants.BUILD_NUMBER
 import org.arxing.bitrisesdk.core.Constants.BUILD_SLUG
 import org.arxing.bitrisesdk.core.Constants.COMMIT_MESSAGE
@@ -26,7 +25,7 @@ import org.arxing.bitrisesdk.core.model.response.builds.GetBuildsEntity
 import org.arxing.bitrisesdk.core.model.response.builds.GetBuildsOfAppEntity
 import org.arxing.bitrisesdk.core.model.response.builds.GetWorkflowsEntity
 import org.arxing.bitrisesdk.core.model.response.builds.TriggerBuildEntity
-import org.arxing.bitrisesdk.core.result.Result
+import org.arxing.bitrisesdk.core.result.SimpleResult
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -38,7 +37,7 @@ interface BuildsService {
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/build-workflows")
   suspend fun getWorkflows(
     @Path(APP_SLUG) appSlug: String,
-  ): Result<GetWorkflowsEntity>
+  ): SimpleResult<GetWorkflowsEntity>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/builds")
   suspend fun getBuildsOfApp(
@@ -55,38 +54,38 @@ interface BuildsService {
     @Query(AFTER) after: Int? = null,
     @Query(BEFORE) before: Int? = null,
     @Query(STATUS) status: Int? = null,
-  ): Result<GetBuildsOfAppEntity>
+  ): SimpleResult<GetBuildsOfAppEntity>
 
   @POST("/v$API_VERSION/apps/{$APP_SLUG}/builds")
   suspend fun triggerBuild(
     @Path(APP_SLUG) appSlug: String,
     @Body body: TriggerBuildRequestBody,
-  ): Result<TriggerBuildEntity>
+  ): SimpleResult<TriggerBuildEntity>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/builds/{$BUILD_SLUG}")
   suspend fun getBuild(
     @Path(APP_SLUG) appSlug: String,
     @Path(BUILD_SLUG) buildSlug: String,
-  ): Result<GetBuildEntity>
+  ): SimpleResult<GetBuildEntity>
 
   @POST("/v$API_VERSION/apps/{$APP_SLUG}/builds/{$BUILD_SLUG}/abort")
   suspend fun abortBuild(
     @Path(APP_SLUG) appSlug: String,
     @Path(BUILD_SLUG) buildSlug: String,
     @Body body: AbortBuildRequestBody,
-  ): Result<String>
+  ): SimpleResult<String>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/builds/{$BUILD_SLUG}/bitrise.yml")
   suspend fun getBitriseYmlOfBuild(
     @Path(APP_SLUG) appSlug: String,
     @Path(BUILD_SLUG) buildSlug: String,
-  ): Result<String>
+  ): SimpleResult<String>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/builds/{$BUILD_SLUG}/log")
   suspend fun getBuildLog(
     @Path(APP_SLUG) appSlug: String,
     @Path(BUILD_SLUG) buildSlug: String,
-  ): Result<GetBuildLogEntity>
+  ): SimpleResult<GetBuildLogEntity>
 
   @GET("/v$API_VERSION/builds")
   suspend fun getBuilds(
@@ -95,5 +94,5 @@ interface BuildsService {
     @Query(STATUS) status: Int? = null,
     @Query(NEXT) next: String? = null,
     @Query(LIMIT) limit: Int? = null,
-  ): Result<GetBuildsEntity>
+  ): SimpleResult<GetBuildsEntity>
 }

@@ -10,15 +10,15 @@ import org.arxing.bitrisesdk.core.model.response.user.GetUserEntity
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Path
-import org.arxing.bitrisesdk.core.result.Result
+import org.arxing.bitrisesdk.core.result.SimpleResult
 
 interface UserService {
 
   @GET("/v${API_VERSION}/me")
-  suspend fun getMyProfile(): Result<GetMyProfileEntity>
+  suspend fun getMyProfile(): SimpleResult<GetMyProfileEntity>
 
   @GET("/v${API_VERSION}/me/addon-tokens")
-  suspend fun getMyActiveAddonTokens(): Result<GetMyActiveAddonTokensEntity>
+  suspend fun getMyActiveAddonTokens(): SimpleResult<GetMyActiveAddonTokensEntity>
 
   @DELETE("/v${API_VERSION}/me/addon-tokens/{$ADDON_ID}")
   suspend fun deleteMyActiveAddonToken(
@@ -26,10 +26,10 @@ interface UserService {
   )
 
   @GET("/v${API_VERSION}/me/plan")
-  suspend fun getMyPlan(): Result<GetMyPlanEntity>
+  suspend fun getMyPlan(): SimpleResult<GetMyPlanEntity>
 
   @GET("/v${API_VERSION}/users/{$USER_SLUG}")
   suspend fun getUser(
     @Path(USER_SLUG) userSlug: String
-  ): Result<GetUserEntity>
+  ): SimpleResult<GetUserEntity>
 }

@@ -1,18 +1,18 @@
 package org.arxing.bitrisesdk.core.result
 
-sealed class Result<T> {
+sealed class SimpleResult<T> {
 
-  private class Success<T>(val value: T) : Result<T>()
+  private class Success<T>(val value: T) : SimpleResult<T>()
 
-  private class Failure<T>(val exception: Throwable) : Result<T>()
+  private class Failure<T>(val exception: Throwable) : SimpleResult<T>()
 
   companion object {
 
-    fun <T> success(value: T): Result<T> {
+    fun <T> success(value: T): SimpleResult<T> {
       return Success(value)
     }
 
-    fun <T> failure(error: Throwable): Result<T> {
+    fun <T> failure(error: Throwable): SimpleResult<T> {
       return Failure(error)
     }
   }
@@ -46,12 +46,12 @@ sealed class Result<T> {
     is Success -> value
   }
 
-  fun <R> map(transform: (T) -> R): Result<R> = when (this) {
+  fun <R> map(transform: (T) -> R): SimpleResult<R> = when (this) {
     is Failure -> failure(exception)
     is Success -> success(transform(value))
   }
 
-  fun onSuccess(action: (T) -> Unit): Result<T> = when (this) {
+  fun onSuccess(action: (T) -> Unit): SimpleResult<T> = when (this) {
     is Failure -> this
     is Success -> {
       action(value)
@@ -59,7 +59,7 @@ sealed class Result<T> {
     }
   }
 
-  fun onFailure(action: (Throwable) -> Unit): Result<T> = when (this) {
+  fun onFailure(action: (Throwable) -> Unit): SimpleResult<T> = when (this) {
     is Failure -> {
       action(exception)
       this
