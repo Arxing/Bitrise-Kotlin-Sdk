@@ -1,9 +1,38 @@
 plugins {
   id 'org.jetbrains.kotlin.jvm' version '1.5.0'
+  id("maven-publish")
+}
+
+Properties localProperties = new Properties() {
+  {
+    load(file("local.properties").newInputStream())
+  }
 }
 
 repositories {
   mavenCentral()
+}
+
+group = "org.arxing"
+version = "0.0.1"
+
+publishing {
+  repositories {
+    maven {
+      name = "BitriseKotlinSdk"
+      url = uri("https://maven.pkg.github.com/Arxing/Bitrise-Kotlin-Sdk")
+      println(localProperties.getProperty("gpr.user"))
+      credentials {
+        username = localProperties.getProperty("gpr.user")
+        password = localProperties.getProperty("gpr.token")
+      }
+    }
+  }
+  publications {
+    gpr(MavenPublication) {
+      from(components.java)
+    }
+  }
 }
 
 dependencies {
