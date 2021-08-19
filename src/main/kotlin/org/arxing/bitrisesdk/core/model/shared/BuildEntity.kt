@@ -21,7 +21,7 @@ data class BuildEntity(
   @SerializedName("repository") val repository: RepositoryEntity?,
   @SerializedName("slug") val slug: String,
   @SerializedName("stack_identifier") val stackIdentifier: String,
-  @SerializedName("started_on_worker_at") val startedOnWorkerAt: String,
+  @SerializedName("started_on_worker_at") val startedOnWorkerAt: String?,
   @SerializedName("status") val status: Int,
   @SerializedName("status_text") val statusText: String,
   @SerializedName("tag") val tag: String?,
