@@ -6,7 +6,7 @@ import retrofit2.CallAdapter.Factory
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import org.arxing.bitrisesdk.core.result.SimpleResult
+import kotlin.Result
 
 class ResultCallAdapterFactory private constructor() : Factory() {
 
@@ -26,7 +26,7 @@ class ResultCallAdapterFactory private constructor() : Factory() {
       Call::class.java -> {
         val callType = getParameterUpperBound(0, returnType as ParameterizedType)
         when (getRawType(callType)) {
-          SimpleResult::class.java -> {
+          Result::class.java -> {
             val resultType = getParameterUpperBound(0, callType as ParameterizedType)
             ResultCallAdapter(getRawType(resultType))
           }

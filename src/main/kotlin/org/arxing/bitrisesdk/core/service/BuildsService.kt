@@ -25,7 +25,7 @@ import org.arxing.bitrisesdk.core.model.response.builds.GetBuildsEntity
 import org.arxing.bitrisesdk.core.model.response.builds.GetBuildsOfAppEntity
 import org.arxing.bitrisesdk.core.model.response.builds.GetWorkflowsEntity
 import org.arxing.bitrisesdk.core.model.response.builds.TriggerBuildEntity
-import org.arxing.bitrisesdk.core.result.SimpleResult
+import kotlin.Result
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -37,7 +37,7 @@ interface BuildsService {
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/build-workflows")
   suspend fun getWorkflows(
     @Path(APP_SLUG) appSlug: String,
-  ): SimpleResult<GetWorkflowsEntity>
+  ): Result<GetWorkflowsEntity>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/builds")
   suspend fun getBuildsOfApp(
@@ -54,38 +54,38 @@ interface BuildsService {
     @Query(AFTER) after: Int? = null,
     @Query(BEFORE) before: Int? = null,
     @Query(STATUS) status: Int? = null,
-  ): SimpleResult<GetBuildsOfAppEntity>
+  ): Result<GetBuildsOfAppEntity>
 
   @POST("/v$API_VERSION/apps/{$APP_SLUG}/builds")
   suspend fun triggerBuild(
     @Path(APP_SLUG) appSlug: String,
     @Body body: TriggerBuildRequestBody,
-  ): SimpleResult<TriggerBuildEntity>
+  ): Result<TriggerBuildEntity>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/builds/{$BUILD_SLUG}")
   suspend fun getBuild(
     @Path(APP_SLUG) appSlug: String,
     @Path(BUILD_SLUG) buildSlug: String,
-  ): SimpleResult<GetBuildEntity>
+  ): Result<GetBuildEntity>
 
   @POST("/v$API_VERSION/apps/{$APP_SLUG}/builds/{$BUILD_SLUG}/abort")
   suspend fun abortBuild(
     @Path(APP_SLUG) appSlug: String,
     @Path(BUILD_SLUG) buildSlug: String,
     @Body body: AbortBuildRequestBody,
-  ): SimpleResult<String>
+  ): Result<String>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/builds/{$BUILD_SLUG}/bitrise.yml")
   suspend fun getBitriseYmlOfBuild(
     @Path(APP_SLUG) appSlug: String,
     @Path(BUILD_SLUG) buildSlug: String,
-  ): SimpleResult<String>
+  ): Result<String>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/builds/{$BUILD_SLUG}/log")
   suspend fun getBuildLog(
     @Path(APP_SLUG) appSlug: String,
     @Path(BUILD_SLUG) buildSlug: String,
-  ): SimpleResult<GetBuildLogEntity>
+  ): Result<GetBuildLogEntity>
 
   @GET("/v$API_VERSION/builds")
   suspend fun getBuilds(
@@ -94,5 +94,5 @@ interface BuildsService {
     @Query(STATUS) status: Int? = null,
     @Query(NEXT) next: String? = null,
     @Query(LIMIT) limit: Int? = null,
-  ): SimpleResult<GetBuildsEntity>
+  ): Result<GetBuildsEntity>
 }

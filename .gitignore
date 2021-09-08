@@ -2,3 +2,4 @@
 .idea
 build
 local.properties
+src/main/kotlin/org/arxing/bitrisesdk/Main.kt
