@@ -19,6 +19,7 @@ import org.arxing.bitrisesdk.core.Constants.TRIGGER_EVENT_TYPE
 import org.arxing.bitrisesdk.core.Constants.WORKFLOW
 import org.arxing.bitrisesdk.core.model.request.AbortBuildRequestBody
 import org.arxing.bitrisesdk.core.model.request.TriggerBuildRequestBody
+import org.arxing.bitrisesdk.core.model.response.builds.AbortBuildEntity
 import org.arxing.bitrisesdk.core.model.response.builds.GetBuildEntity
 import org.arxing.bitrisesdk.core.model.response.builds.GetBuildLogEntity
 import org.arxing.bitrisesdk.core.model.response.builds.GetBuildsEntity
@@ -73,7 +74,7 @@ interface BuildsService {
     @Path(APP_SLUG) appSlug: String,
     @Path(BUILD_SLUG) buildSlug: String,
     @Body body: AbortBuildRequestBody,
-  ): Result<String>
+  ): Result<AbortBuildEntity>
 
   @GET("/v$API_VERSION/apps/{$APP_SLUG}/builds/{$BUILD_SLUG}/bitrise.yml")
   suspend fun getBitriseYmlOfBuild(
